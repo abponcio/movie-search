@@ -1,0 +1,10 @@
+<form ng-submit="mc.search(mc.query)">
+	<input type="text" name="search" ng-model="mc.query" value="{{ mc.query }}" /> 
+	<button type="submit" name="submit" >Search</button>
+</form>
+
+<ul>
+	<li ng-repeat="(key, movie) in mc.movies">
+		{{ movie.title }}
+	</li>
+</ul>
