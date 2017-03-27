@@ -1,10 +1,23 @@
-<form ng-submit="mc.search(mc.query)">
-	<input type="text" name="search" ng-model="mc.query" value="{{ mc.query }}" /> 
-	<button type="submit" name="submit" >Search</button>
+<form ng-submit="mc.search(mc.query)" class="row" style="margin-top: 10px;">
+	<div class="form-group col-sm-8">
+		<input type="text" name="search" class="form-control" ng-model="mc.query" value="{{ mc.query }}" placeholder="Search">
+	</div>
+	<div class="form-group col-sm-4">
+		<button type="submit" name="submit" class="btn btn-primary form-control">Search</button>
+	</div>
 </form>
 
-<ul>
-	<li ng-repeat="(key, movie) in mc.movies">
-		{{ movie.title }}
-	</li>
-</ul>
+<div class="card-columns">
+	<div class="card" ng-repeat="(key, movie) in mc.movies">
+	  	<a href="#">
+		    <img class="card-img-top img-fluid" src="{{ mc.APICONFIG.base_url }}w500{{ movie.poster_path }}" alt="{{ movie.title }}">
+		</a>
+	    <div class="card-block">
+			<h4 class="card-title"><a href="">{{ movie.title }}</a></h4>
+			<p class="card-text"><span ng-bind="movie.overview | limitTo:100"></span><span ng-if="movie.overview.length > 10">...</span></p>
+	    </div>
+	    <div class="card-footer">
+			<small class="text-muted">Released: {{ movie.release_date | date : fullDate}}</small>
+	    </div>
+  	</div>
+</div>

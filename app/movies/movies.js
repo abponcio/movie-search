@@ -20,21 +20,22 @@
 		.controller('MovieCtrl', MovieCtrl);
 
 	// inject movie service
-	MovieCtrl.$inject = ['movieService'];
-	function MovieCtrl(movieService) {
+	MovieCtrl.$inject = ['movieService', 'APICONFIG'];
+	function MovieCtrl(movieService, APICONFIG) {
 		var vm = this;
 		// initialize variables
-		vm.movies = [];
-		vm.pages  = 0;
-		vm.total  = 0;
-		vm.query  = '';
-
+		vm.movies 	 = [];
+		vm.pages  	 = 0;
+		vm.total  	 = 0;
+		vm.query  	 = '';
+		vm.APICONFIG = APICONFIG;
 		// actions
 		vm.search = search;
 
 		// run activate
 		activate();
 
+		console.log(vm);
 		// initial list
 		function activate() {
 			// initial listing of latest movies
@@ -45,13 +46,14 @@
 				vm.total  = data.total_results;
 				// set results
 	            vm.movies = data.results;
+
+	            // return results
 	            return vm;
 	        });
 		}
 
 		// search function
 		function search(query) {
-			console.log('dasd');
 			// fetch from service search query
 			return movieService.search(query).then(function(data) {
 				// set pages
@@ -60,6 +62,8 @@
 				vm.total  = data.total_results;
 				// set results
 	            vm.movies = data.results;
+
+	            // return results
 	            return vm;
 	        });
 		}
@@ -71,12 +75,12 @@
 		.service('movieService', movieService);
 
 	// inject
-	movieService.$inject = ['$http', '$q', 'global'];
-	function movieService($http, $q, global) {
+	movieService.$inject = ['$http', '$q', 'APICONFIG'];
+	function movieService($http, $q, APICONFIG) {
 		// set api url
-		var apiUrl = global.api_url;
+		var apiUrl = APICONFIG.api_url;
 		// set api key
-		var apiKey = global.api_key;
+		var apiKey = APICONFIG.api_key;
 		// set functions
 		var service = {
 	        latest: latest,
