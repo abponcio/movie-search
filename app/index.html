@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/tether/dist/css/tether.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <!-- <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"> -->
     <link rel="stylesheet" href="app.css">
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
@@ -21,13 +23,15 @@
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" ng-click="isNavCollapsed = !isNavCollapsed" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <a class="navbar-brand" href="#!/movies">MC</a>
+        <div class="navbar-brand">
+            <a href back-button ng-class="{'ng-hide':location.path() == '/movies'}" class="pull-left"><i class="fa fa-chevron-left"></i></a>
+            <a class="lead" style="color:#4a4a4c; margin-left: 20px;" href="/#!/movies">MC</a>
+        </div>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent" uib-collapse="isNavCollapsed">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#!/movies">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/#!/movies">Home <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>
@@ -38,19 +42,21 @@
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div ng-view class="container-fluid"></div> 
+    <div ng-view class="container-fluid app"></div> 
 
     <!-- In production use:
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
     -->
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script> 
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script> 
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script> 
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/tether/dist/js/tether.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
-    <script src="view1/view1.js"></script>
-    <script src="view2/view2.js"></script>
     <script src="movies/movies.js"></script>
+    <script src="movies/detail/detail.js"></script>
     <script src="components/version/version.js"></script>
     <script src="components/version/version-directive.js"></script>
     <script src="components/version/interpolate-filter.js"></script>

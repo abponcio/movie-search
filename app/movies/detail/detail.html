@@ -1,0 +1,32 @@
+<div class="content">
+	<div class="row">
+		<div class="col-md-6 clearfix">
+			<figure class="movie-poster"><img class="img-fluid" src="{{ md.APICONFIG.base_url }}w500{{ md.detail.poster_path }}" alt="{{ md.detail.title }}"></figure>
+		</div>
+		<div class="col-md-6">
+			<h2 class="movie-title">{{ md.detail.title }}</h2>
+			<div class="movie-summary">
+				{{ md.detail.overview }}
+			</div>
+			<ul class="movie-meta">
+				<li><strong>Rating:</strong> 
+					<div class="star-rating" title="Rated {{ md.detail.popularity | number:2 }} out of 10"><span style="width:80%"><strong class="rating">{{ md.detail.popularity | number:2 }}</strong> out of 10</span></div>
+				</li>
+				<li><strong>Length:</strong> {{ md.detail.runtime }} min</li>
+				<li><strong>Premiere:</strong> 
+					{{ md.detail.release_date | date : fullDate}}
+				</li>
+				<li><strong>Category:</strong> Animation/Adventure/Comedy</li>
+			</ul>
+
+			<ul class="starring">
+				<li><strong>Directors:</strong> Kirk de Mico (as Kirk DeMico). Chris Sanders</li>
+				<li><strong>Writers:</strong> Chris Sanders (screenplay), Kirk De Micco (screenplay)</li>
+				<li><strong>Stars:</strong> Nicolas Cage, Ryan Reynolds, Emma Stone</li>
+			</ul>
+		</div>
+	</div> <!-- .row -->
+
+	<div class="entry-content">
+	</div>
+</div> <!-- .container -->

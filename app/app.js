@@ -3,9 +3,8 @@
 
 	angular.module('myApp', [
 	  'ngRoute',
-	  'myApp.view1',
-	  'myApp.view2',
 	  'myApp.movies',
+	  'myApp.movies.detail',
 	  'myApp.version',
 	  'ui.bootstrap'
 	]);
@@ -38,5 +37,21 @@
 		vm.isNavCollapsed = false;
 		vm.isCollapsed = true;
 		vm.isCollapsedHorizontal = true;
+	}
+
+	angular
+		.module('myApp')
+		.directive('backButton', backButton);
+
+	backButton.$inject = ['$window'];
+	function backButton($window) {
+		return {
+            restrict: 'A',
+            link: function (scope, elem, attrs) {
+                elem.bind('click', function () {
+                    $window.history.back();
+                });
+            }
+        };
 	}
 })()

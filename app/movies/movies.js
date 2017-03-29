@@ -24,10 +24,12 @@
 	function MovieCtrl(movieService, APICONFIG) {
 		var vm = this;
 		// initialize variables
-		vm.movies 	 = [];
-		vm.pages  	 = 0;
-		vm.total  	 = 0;
-		vm.query  	 = '';
+		vm.movies 	   = [];
+		vm.pages  	   = 0;
+		vm.total  	   = 0;
+		vm.pageSize    = 20;
+		vm.query  	   = '';
+		vm.currentPage = 1;
 		vm.APICONFIG = APICONFIG;
 		// actions
 		vm.search = search;
@@ -39,30 +41,28 @@
 		// initial list
 		function activate() {
 			// initial listing of latest movies
-			return movieService.latest().then(function(data) {
+			return movieService.latest(vm.currentPage).then(function(data) {
 				// set pages
 				vm.pages  = data.total_pages;
 				// set total results
 				vm.total  = data.total_results;
 				// set results
 	            vm.movies = data.results;
-
 	            // return results
 	            return vm;
 	        });
 		}
 
 		// search function
-		function search(query) {
+		function search(query, currentPage) {
 			// fetch from service search query
-			return movieService.search(query).then(function(data) {
+			return movieService.search(query, vm.currentPage).then(function(data) {
 				// set pages
 				vm.pages  = data.total_pages;
 				// set total results
 				vm.total  = data.total_results;
 				// set results
 	            vm.movies = data.results;
-
 	            // return results
 	            return vm;
 	        });
@@ -84,7 +84,8 @@
 		// set functions
 		var service = {
 	        latest: latest,
-	        search: search
+	        search: search,
+	        detail: detail
 	    };
 
 	    return service;
@@ -92,7 +93,7 @@
 		/////
 
 		// list all latest movies from api
-		function latest(page = 1) {
+		function latest(page) {
 			// set request url
 			var requestApi = apiUrl + '/movie/top_rated?api_key=' + apiKey + '&language=en-US&page=' + page;
 
@@ -117,9 +118,9 @@
 		}
 
 		// search movies from api
-		function search(query) {
+		function search(query, page) {
 			// set request url
-			var requestApi = apiUrl + '/search/movie?api_key=' + apiKey + '&language=en-US&query=' + query;
+			var requestApi = apiUrl + '/search/movie?api_key=' + apiKey + '&language=en-US&query=' + query + 'page=' + page;
 
 			return $http
 				.get(requestApi)
@@ -131,6 +132,31 @@
 		    }
 
 		    function searchMoviesFailed(e) {
+		        var newMessage = 'XHR Failed for getMovies'
+		        if (e.data && e.data.description) {
+		          newMessage = newMessage + '\n' + e.data.description;
+		        }
+		        e.data.description = newMessage;
+		        logger.error(newMessage);
+		        return $q.reject(e);
+		    }
+		}
+
+		// search movies from api
+		function detail(id) {
+			// set request url
+			var requestApi = apiUrl + '/movie/' + id + '?api_key=' + apiKey;
+
+			return $http
+				.get(requestApi)
+		        .then(detailMoviesComplete)
+		        .catch(detailMoviesFailed);
+
+		    function detailMoviesComplete(data, status, headers, config) {
+		        return data.data;
+		    }
+
+		    function detailMoviesFailed(e) {
 		        var newMessage = 'XHR Failed for getMovies'
 		        if (e.data && e.data.description) {
 		          newMessage = newMessage + '\n' + e.data.description;

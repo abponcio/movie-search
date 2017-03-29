@@ -9,11 +9,11 @@
 
 <div class="card-columns">
 	<div class="card" ng-repeat="(key, movie) in mc.movies">
-	  	<a href="#">
+	  	<a href="/#!/movies/{{ movie.id }}">
 		    <img class="card-img-top img-fluid" src="{{ mc.APICONFIG.base_url }}w500{{ movie.poster_path }}" alt="{{ movie.title }}">
 		</a>
 	    <div class="card-block">
-			<h4 class="card-title"><a href="">{{ movie.title }}</a></h4>
+			<h4 class="card-title"><a href="/#!/movies/{{ movie.id }}">{{ movie.title }}</a></h4>
 			<p class="card-text"><span ng-bind="movie.overview | limitTo:100"></span><span ng-if="movie.overview.length > 10">...</span></p>
 	    </div>
 	    <div class="card-footer">
