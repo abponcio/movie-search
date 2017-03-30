@@ -16,7 +16,7 @@
 				<li><strong>Premiere:</strong> 
 					{{ md.detail.release_date | date : fullDate}}
 				</li>
-				<li><strong>Category:</strong> Animation/Adventure/Comedy</li>
+				<li><strong>Category:</strong> <span ng-repeat="(key, genre) in md.detail.genres">{{ genre.name }} {{$last ? '' : ' / '}}</span></li>
 			</ul>
 
 			<ul class="starring">

@@ -95,7 +95,7 @@
 		// list all latest movies from api
 		function latest(page) {
 			// set request url
-			var requestApi = apiUrl + '/movie/top_rated?api_key=' + apiKey + '&language=en-US&page=' + page;
+			var requestApi = apiUrl + '/movie/popular?api_key=' + apiKey + '&language=en-US&page=' + page;
 
 			return $http
 				.get(requestApi)
